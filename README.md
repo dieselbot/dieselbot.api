@@ -10,3 +10,5 @@ git submodule update
 # start server
 npm start
 ```
+
+https://efshelper-api.fly.dev/

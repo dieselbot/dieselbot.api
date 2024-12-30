@@ -19,5 +19,8 @@
   "homepage": "https://github.com/efshelper/efshelper.api#readme",
   "dependencies": {
     "fastify": "^5.2.0"
+  },
+  "devDependencies": {
+    "@flydotio/dockerfile": "^0.5.9"
   }
 }
