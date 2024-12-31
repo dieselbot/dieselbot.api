@@ -1,11 +1,22 @@
 const { createClient } = require('redis');
+const formbody = require("@fastify/formbody");
+const cors = require('@fastify/cors');
+const bearerAuthPlugin = require('@fastify/bearer-auth');
+
+const keys = new Set([process.env.EFS_API_KEY]);
 
 const fastify = require('fastify')({
   logger: true
 })
 
+fastify.register(bearerAuthPlugin, {keys})
+
 // Formbody lets us parse incoming forms
-fastify.register(require("@fastify/formbody"));
+fastify.register(formbody);
+
+fastify.register(cors, {
+  origin: ['0.0.0.0']
+})
 
 // Declare a route
 fastify.get('/', function (request, reply) {
