@@ -19,7 +19,7 @@ fastify.listen({ port: 8080, host: '0.0.0.0' }, function (err, address) {
 })
 
 const client = createClient({
-  url: process.env.UPSTASH_REDIS_REST_URL
+  url: process.env.REDIS_URL
 });
 const subscriber = client.duplicate();
 
