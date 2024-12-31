@@ -21,13 +21,15 @@ fastify.listen({ port: 8080, host: '0.0.0.0' }, function (err, address) {
 const client = createClient({
   url: process.env.REDIS_URL
 });
+
 const subscriber = client.duplicate();
 
 subscriber
 .on('error', err => console.log('Redis Client Error', err))
 .connect().then(() => {
   subscriber.subscribe('fuelstop.found', message => {
-    console.log(message)
+    const fuelstops = JSON.parse(message);
+    console.log(fuelstops);
   })
 });
 
