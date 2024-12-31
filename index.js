@@ -4,6 +4,9 @@ const fastify = require('fastify')({
   logger: true
 })
 
+// Formbody lets us parse incoming forms
+fastify.register(require("@fastify/formbody"));
+
 // Declare a route
 fastify.get('/', function (request, reply) {
   reply.send({ hello: 'world' })
@@ -14,7 +17,7 @@ fastify.listen({ port: 8080, host: '0.0.0.0' }, function (err, address) {
   if (err) {
     fastify.log.error(err)
     process.exit(1)
-  }``
+  }
   // Server is now listening on ${address}
 })
 
