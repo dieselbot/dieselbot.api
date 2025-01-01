@@ -2,6 +2,7 @@ const { createClient } = require('redis');
 const formbody = require("@fastify/formbody");
 const cors = require('@fastify/cors');
 const bearerAuthPlugin = require('@fastify/bearer-auth');
+const fuelstopRoute = require('./routes/fuelstop');
 
 const keys = new Set([process.env.EFS_API_KEY]);
 
@@ -15,13 +16,15 @@ fastify.register(bearerAuthPlugin, {keys})
 fastify.register(formbody);
 
 fastify.register(cors, {
-  origin: ['0.0.0.0']
+  origin: ['0.0.0.0', process.env.EFS_WEB_ORIGIN]
 })
 
 // Declare a route
 fastify.get('/', function (request, reply) {
   reply.send({ hello: 'world' })
 })
+
+fastify.post('/fuelstop', fuelstopRoute);
 
 // Run the server!
 fastify.listen({ port: 8080, host: '0.0.0.0' }, function (err, address) {
