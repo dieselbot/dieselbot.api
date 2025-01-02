@@ -24,6 +24,20 @@ RUN apt-get update -qq && \
 COPY package-lock.json package.json ./
 RUN npm ci
 
+RUN git submodule init
+
+RUN git submodule update
+
+WORKDIR /app/efshelper.core
+
+RUN git pull
+
+RUN npm i
+
+RUN mkdir ./private
+
+WORKDIR /app
+
 # Copy application code
 COPY . .
 
