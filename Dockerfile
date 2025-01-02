@@ -17,24 +17,12 @@ ENV NODE_ENV="production"
 FROM base as build
 
 # Install packages needed to build node modules
-RUN apt-get update -qq && apt-get install -y git && \
+RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y build-essential node-gyp pkg-config python-is-python3
 
 # Install node modules
 COPY package-lock.json package.json ./
 RUN npm ci
-
-# clone core module
-RUN git clone https://github.com/efshelper/efshelper.core.git
-
-# install core dependencies
-WORKDIR /app/efshelper.core
-RUN npm i
-
-# create private folder for config files
-RUN mkdir private
-
-WORKDIR /app
 
 # Copy application code
 COPY . .
