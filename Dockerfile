@@ -24,17 +24,15 @@ RUN apt-get update -qq && apt-get install -y git && \
 COPY package-lock.json package.json ./
 RUN npm ci
 
-RUN git submodule init
+# clone core module
+RUN git clone https://github.com/efshelper/efshelper.core.git
 
-RUN git submodule update
-
+# install core dependencies
 WORKDIR /app/efshelper.core
-
-RUN git pull
-
 RUN npm i
 
-RUN mkdir ./private
+# create private folder for config files
+RUN mkdir private
 
 WORKDIR /app
 
