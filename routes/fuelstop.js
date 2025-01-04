@@ -3,7 +3,12 @@ const FuelStop = require("../efshelper.core/domain/fuel.stop");
 
 async function fuelstopRoute(request, reply) {
 
-    const fuelstops = JSON.parse(request.body);
+    let fuelstops = request.body;
+
+    if(/text\/plain/.test(request.headers['content-type'])){
+        fuelstops = JSON.parse(request.body)
+    }
+
     const added = [];
 
     const repo = new FuelStopRepo();
