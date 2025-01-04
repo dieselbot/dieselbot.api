@@ -11,6 +11,8 @@ const fastify = require('fastify')({
 
 fastify.register(bearerAuthPlugin, {keys})
 
+fastify.register(require('./plugins/fuelstop.repo.plugin.js'))
+
 // Formbody lets us parse incoming forms
 fastify.register(formbody);
 
