@@ -2,6 +2,7 @@ const formbody = require("@fastify/formbody");
 const cors = require('@fastify/cors');
 const bearerAuthPlugin = require('@fastify/bearer-auth');
 const fuelstopRoute = require('./routes/fuelstop');
+const fuelStopRepoPlugin = require('./plugins/fuelstop.repo.plugin.js');
 
 const keys = new Set([process.env.EFS_API_KEY]);
 
@@ -11,7 +12,7 @@ const fastify = require('fastify')({
 
 fastify.register(bearerAuthPlugin, {keys})
 
-fastify.register(require('./plugins/fuelstop.repo.plugin.js'))
+fastify.register(fuelStopRepoPlugin);
 
 // Formbody lets us parse incoming forms
 fastify.register(formbody);
