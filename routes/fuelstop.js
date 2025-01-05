@@ -5,19 +5,17 @@ async function fuelstopRoute(request, reply) {
 
     let fuelstops = request.body;
 
-    if(/text\/plain/.test(request.headers['content-type'])){
+    if (/text\/plain/.test(request.headers['content-type'])) {
         fuelstops = JSON.parse(request.body);
     }
 
-    fuelstops.forEach((fuelstop, i) => {
-        if (FuelStop.isValid(fuelstop)) {
-            this.fuelStopRepo.addOne(fuelstop);
-        } else {
-            reply.code(400).send(`invalid fuel stop at index ${i}: ${JSON.stringify(fuelstop)}`);
-        }
+    const promises = fuelstops.map((fuelstop) => {
+        return this.fuelStopRepo.addOne(fuelstop)
     })
 
-    reply.send();
+    return Promise.all(promises)
+           .then(() => reply.send())
+           .catch(error => reply.code(400).send(`failed to insert fuel stop: ${error.message}`))
 }
 
 module.exports = fuelstopRoute;
