@@ -1,5 +1,8 @@
 const fastifyPlugin = require('fastify-plugin');
-const FuelStopRepo = require('../efshelper.core/repository/fuelstop.repo.js');
+const path = require('path');
+const FuelStopRepo = require(
+  path.join(__dirname, '../efshelper.core/repository/fuelstop.repo.js')
+);
 
 async function fuelStopRepoPlugin(fastify, options) {
   fastify.decorate('fuelStopRepo', new FuelStopRepo());
