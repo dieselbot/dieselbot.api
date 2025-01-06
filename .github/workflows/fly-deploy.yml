@@ -17,7 +17,7 @@ jobs:
           submodules: true
       - uses: superfly/flyctl-actions/setup-flyctl@master
       - run: ls
-      #- run: flyctl deploy --remote-only
-      #  working-directory: app
+      - run: flyctl deploy --remote-only
+        working-directory: main
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
