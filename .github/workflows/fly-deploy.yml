@@ -15,9 +15,9 @@ jobs:
         with:
           path: main
           submodules: true
-      - uses: superfly/flyctl-actions/setup-flyctl@master
-      - run: flyctl deploy --remote-only
-        working-directory: /
+      # - uses: superfly/flyctl-actions/setup-flyctl@master
+      # - run: flyctl deploy --remote-only
+      #   working-directory: /
       - run: pwd
         working-directory: /
         env:
