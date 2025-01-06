@@ -12,7 +12,7 @@ jobs:
     concurrency: deploy-group    # optional: ensure only one action runs at a time
     steps:
       - uses: actions/checkout@v4
-      - with:
+        with:
           repository: efshelper/efshelper.core
           path: efshelper.core
       - uses: actions/checkout@v4
