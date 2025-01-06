@@ -131,3 +131,6 @@ dist
 
 # macOS metadata file
 .DS_Store
+
+config
+demo
