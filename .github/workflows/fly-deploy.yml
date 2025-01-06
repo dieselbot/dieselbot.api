@@ -16,8 +16,8 @@ jobs:
           path: main
           submodules: true
       - uses: superfly/flyctl-actions/setup-flyctl@master
-      - run: ls ../
+      - run: ls ../efshelper.api
       - run: flyctl deploy --remote-only
-        working-directory: efshelper.api
+        working-directory: ../efshelper.api
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
