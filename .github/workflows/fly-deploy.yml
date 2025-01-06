@@ -11,10 +11,12 @@ jobs:
     runs-on: ubuntu-latest
     concurrency: deploy-group    # optional: ensure only one action runs at a time
     steps:
+      - name: Checkout core
       - uses: actions/checkout@v4
       - with:
           repository: efshelper/efshelper.core
           path: efshelper.core
+      - name: Checkout api
       - uses: actions/checkout@v4
       - uses: superfly/flyctl-actions/setup-flyctl@master
       - run: flyctl deploy --remote-only
