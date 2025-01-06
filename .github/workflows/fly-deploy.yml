@@ -16,6 +16,8 @@ jobs:
           repository: efshelper/efshelper.core
           path: efshelper.core
       - uses: actions/checkout@v4
+        with:
+          path: main
       - uses: superfly/flyctl-actions/setup-flyctl@master
       - run: flyctl deploy --remote-only
       - env:
