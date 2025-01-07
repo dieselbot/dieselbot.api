@@ -27,6 +27,8 @@ RUN npm ci
 # Copy application code
 COPY . .
 
+RUN ls -a && pwd
+
 
 # Final stage for app image
 FROM base
