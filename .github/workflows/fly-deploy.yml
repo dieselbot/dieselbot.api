@@ -13,11 +13,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          repository: efshelper/efshelper.config
-          token: ${{ secrets.EFS_CONFIG_PAT }} #
+          submodules: true
       - uses: actions/checkout@v4
         with:
-          submodules: true
+          repository: efshelper/efshelper.config
+          token: ${{ secrets.EFS_CONFIG_PAT }}
+          path: config
       - uses: superfly/flyctl-actions/setup-flyctl@master
       - run: flyctl deploy --remote-only -c fly.toml -a efshelper-api-patient-firefly-2904
         env:
