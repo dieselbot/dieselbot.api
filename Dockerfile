@@ -27,11 +27,11 @@ RUN npm ci
 # Copy application code
 COPY . .
 
-WORKDIR /app/efshelper.core 
-
-RUN ls -a
-
+# Install core module dependencies
+WORKDIR /app/efshelper.core
 RUN npm install
+
+RUN mkdir config
 
 WORKDIR /app
 
