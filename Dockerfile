@@ -33,7 +33,7 @@ RUN npm install
 
 WORKDIR /app
 
-COPY /app/config /app/efshelper.core
+# COPY /app/config /app/efshelper.core
 
 # Final stage for app image
 FROM base
