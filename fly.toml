@@ -1,10 +1,12 @@
-# fly.toml app configuration file generated for efshelper-api on 2025-01-06T17:34:59-05:00
+# fly.toml app configuration file generated for efshelper-api-patient-firefly-2904 on 2025-01-06T19:32:23-05:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'efshelper-api'
+app = 'efshelper-api-patient-firefly-2904'
 primary_region = 'bos'
+
+[build]
 
 [env]
   PORT = '8080'
