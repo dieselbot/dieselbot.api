@@ -36,6 +36,9 @@ WORKDIR /app
 # Copy config files
 COPY config efshelper.core/config
 
+# Remove old config directory
+RUN rm -r config
+
 # Final stage for app image
 FROM base
 
