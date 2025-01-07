@@ -6,6 +6,8 @@
 app = 'efshelper-api'
 primary_region = 'bos'
 
+[build]
+
 [env]
   PORT = '8080'
 
