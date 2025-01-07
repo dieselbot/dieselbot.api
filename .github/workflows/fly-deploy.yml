@@ -11,14 +11,18 @@ jobs:
     runs-on: ubuntu-latest
     concurrency: deploy-group    # optional: ensure only one action runs at a time
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout main api repo with core submodule
+        uses: actions/checkout@v4
         with:
           submodules: true
-      - uses: actions/checkout@v4
+      
+      - name: Checkout private config repo
+        uses: actions/checkout@v4
         with:
           repository: efshelper/efshelper.config
           token: ${{ secrets.EFS_CONFIG_PAT }}
           path: config
+
       - uses: superfly/flyctl-actions/setup-flyctl@master
       - run: flyctl deploy --remote-only -c fly.toml -a efshelper-api-patient-firefly-2904
         env:
