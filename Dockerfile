@@ -27,11 +27,13 @@ RUN npm ci
 # Copy application code
 COPY . .
 
-WORKDIR efshelper.core 
+WORKDIR /app/efshelper.core 
 
 RUN ls -a
 
 RUN npm install
+
+WORKDIR /app
 
 # Final stage for app image
 FROM base
