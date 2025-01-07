@@ -31,9 +31,9 @@ COPY . .
 WORKDIR /app/efshelper.core
 RUN npm install
 
-RUN mkdir config
-
 WORKDIR /app
+
+COPY /app/config /app/efshelper.core
 
 # Final stage for app image
 FROM base
