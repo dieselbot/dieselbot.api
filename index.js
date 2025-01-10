@@ -1,10 +1,15 @@
+const path = require("path");
+const { check_env } = require("./efshelper.core/common/utils.js");
+
+check_env(path.join(__dirname, '.env'));
+
 const formbody = require("@fastify/formbody");
 const cors = require('@fastify/cors');
 const bearerAuthPlugin = require('@fastify/bearer-auth');
 const fuelstopRoute = require('./routes/fuelstop');
 const fuelStopRepoPlugin = require('./plugins/fuelstop.repo.plugin.js');
 
-const keys = new Set([process.env.EFS_API_KEY]);
+const keys = new Set([process.env.EFS_API_KEY || crypto.randomUUID()]);
 
 const fastify = require('fastify')({
   logger: true
