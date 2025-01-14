@@ -1,5 +1,5 @@
 const path = require("path");
-const { check_env } = require("./efshelper.core/common/utils.js");
+const { check_env } = require("./core/common/utils.js");
 
 check_env(path.join(__dirname, '.env'));
 
@@ -8,30 +8,35 @@ const cors = require('@fastify/cors');
 const bearerAuthPlugin = require('@fastify/bearer-auth');
 const fuelstopRoute = require('./routes/fuelstop');
 const fuelStopRepoPlugin = require('./plugins/fuelstop.repo.plugin.js');
+const driftRoute = require("./routes/drift.js");
 
-const keys = new Set([process.env.EFS_API_KEY || crypto.randomUUID()]);
+const keys = new Set([process.env.API_KEY || crypto.randomUUID()]);
 
 const fastify = require('fastify')({
   logger: true
 })
 
-fastify.register(bearerAuthPlugin, { keys })
-
 fastify.register(fuelStopRepoPlugin);
+
+fastify.register(async (instance) => {
+  instance.register(bearerAuthPlugin, { keys });
+  instance.post('/fuelstop', fuelstopRoute);
+})
 
 // Formbody lets us parse incoming forms
 fastify.register(formbody);
 
 fastify.register(cors, {
-  origin: ['0.0.0.0', process.env.EFS_WEB_ORIGIN]
+  origin: ['0.0.0.0', process.env.WEB_ORIGIN]
 })
 
 // Declare a route
 fastify.get('/', function (request, reply) {
-  reply.send({ hello: 'world' })
+  reply.send({ diesel: 'bot' })
 })
 
-fastify.post('/fuelstop', fuelstopRoute);
+
+fastify.post('/drift', driftRoute);
 
 // Run the server!
 fastify.listen({ port: 8080, host: '0.0.0.0' }, function (err, address) {
