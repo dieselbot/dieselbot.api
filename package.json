@@ -1,5 +1,5 @@
 {
-  "name": "efshelper.api",
+  "name": "dieselbot.api",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,15 +9,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/efshelper/efshelper.api.git"
+    "url": "git+https://github.com/dieselbot/dieselbot.api.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/efshelper/efshelper.api/issues"
+    "url": "https://github.com/dieselbot/dieselbot.api/issues"
   },
-  "homepage": "https://github.com/efshelper/efshelper.api#readme",
+  "homepage": "https://github.com/dieselbot/dieselbot.api#readme",
   "dependencies": {
     "@fastify/bearer-auth": "^10.0.1",
     "@fastify/cors": "^10.0.1",
