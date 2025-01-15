@@ -27,6 +27,17 @@ RUN npm ci
 # Copy application code
 COPY . .
 
+# Install core module dependencies
+WORKDIR /app/core
+RUN npm install
+
+WORKDIR /app
+
+# Copy config directory
+COPY private/config core/config
+
+# Remove private directory
+RUN rm -r private
 
 # Final stage for app image
 FROM base
