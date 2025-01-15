@@ -11,7 +11,18 @@ jobs:
     runs-on: ubuntu-latest
     concurrency: deploy-group    # optional: ensure only one action runs at a time
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout main api repo with core submodule
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+      
+      - name: Checkout private repo
+        uses: actions/checkout@v4
+        with:
+          repository: dieselbot/dieselbot.private
+          token: ${{ secrets.PRIVATE_PAT }}
+          path: private
+
       - uses: superfly/flyctl-actions/setup-flyctl@master
       - run: flyctl deploy --remote-only
         env:
