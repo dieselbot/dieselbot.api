@@ -5,7 +5,7 @@ const DriftService = require('../core/services/drift');
 async function driftRoute(request, reply){
     const payload = request.body;
 
-    if(payload.data.author.bot) {
+    if(payload.type == 'mock_event_type' || payload.data.author.bot) {
         return reply.send();
     }    
 
