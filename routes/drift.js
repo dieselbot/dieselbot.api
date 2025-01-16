@@ -18,7 +18,7 @@ async function driftRoute(request, reply){
     if(result.success){
 
         if(search.new_fuel_stops.length){
-            this.fuelStopRepo.addMany(fuelstops)
+            this.fuelStopRepo.addMany(search.new_fuel_stops)
                 .catch(error => console.warn(`failed to insert fuel stop: ${error.message}`))
         }
 
