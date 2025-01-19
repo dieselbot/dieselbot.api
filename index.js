@@ -8,6 +8,7 @@ const cors = require('@fastify/cors');
 const bearerAuthPlugin = require('@fastify/bearer-auth');
 const fuelstopRoute = require('./routes/fuelstop');
 const fuelStopRepoPlugin = require('./plugins/fuelstop.repo.plugin.js');
+const searchPlugin = require('./plugins/search.plugin.js');
 const driftRoute = require("./routes/drift.js");
 
 const keys = new Set([process.env.API_KEY || crypto.randomUUID()]);
@@ -18,9 +19,14 @@ const fastify = require('fastify')({
 
 fastify.register(fuelStopRepoPlugin);
 
-fastify.register(async (instance) => {
+fastify.register(async (instance) => {  
   instance.register(bearerAuthPlugin, { keys });
   instance.post('/fuelstop', fuelstopRoute);
+})
+
+fastify.register(async (instance) => {
+  instance.register(searchPlugin);
+  instance.post('/drift', driftRoute);
 })
 
 // Formbody lets us parse incoming forms
@@ -34,9 +40,6 @@ fastify.register(cors, {
 fastify.get('/', function (request, reply) {
   reply.send({ diesel: 'bot' })
 })
-
-
-fastify.post('/drift', driftRoute);
 
 // Run the server!
 fastify.listen({ port: 8080, host: '0.0.0.0' }, function (err, address) {
