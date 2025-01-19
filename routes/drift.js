@@ -1,4 +1,3 @@
-const SearchUseCase = require('../core/application/search.usecase');
 const FuelSolution = require('../core/domain/fuel.solution');
 const DriftService = require('../core/services/drift');
 
@@ -11,7 +10,8 @@ async function driftRoute(request, reply){
 
     const { conversationId, body } = payload.data;
 
-    const search = new SearchUseCase(new FuelSolution(body));
+    const search = this.searchUseCase;
+          search.fuel_solution = new FuelSolution(body);
 
     const result = await search.execute();
 
