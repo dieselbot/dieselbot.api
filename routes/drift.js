@@ -1,5 +1,4 @@
 const FuelSolution = require('../core/domain/fuel.solution');
-const DriftService = require('../core/services/drift');
 
 async function driftRoute(request, reply){
     const payload = request.body;
@@ -10,21 +9,12 @@ async function driftRoute(request, reply){
 
     const { conversationId, body } = payload.data;
 
-    const search = this.searchUseCase;
-          search.fuel_solution = new FuelSolution(body);
+    this.searchUseCase.fuel_solution = new FuelSolution(body);
 
-    const result = await search.execute();
+    const result = await this.searchUseCase.execute();
 
     if(result.success){
-
-        if(search.new_fuel_stops.length){
-            this.fuelStopRepo.addMany(search.new_fuel_stops)
-                .catch(error => console.warn(`failed to insert fuel stop: ${error.message}`))
-        }
-
-        const drift = new DriftService();
-        drift.send(conversationId, result.data);
-
+        this.drift.send(conversationId, result.data);
         return reply.send();
     }
 
