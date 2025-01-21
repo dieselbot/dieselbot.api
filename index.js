@@ -6,9 +6,14 @@ check_env(path.join(__dirname, '.env'));
 const formbody = require("@fastify/formbody");
 const cors = require('@fastify/cors');
 const bearerAuthPlugin = require('@fastify/bearer-auth');
-const fuelstopRoute = require('./routes/fuelstop');
+
+//plugins
 const fuelStopRepoPlugin = require('./plugins/fuelstop.repo.plugin.js');
 const searchPlugin = require('./plugins/search.plugin.js');
+const driftPlugin = require('./plugins/drift.plugin.js');
+
+// routes
+const fuelstopRoute = require('./routes/fuelstop');
 const driftRoute = require("./routes/drift.js");
 
 const keys = new Set([process.env.API_KEY || crypto.randomUUID()]);
@@ -25,6 +30,7 @@ fastify.register(async (instance) => {
 })
 
 fastify.register(async (instance) => {
+  instance.register(driftPlugin);
   instance.register(searchPlugin);
   instance.post('/drift', driftRoute);
 })
