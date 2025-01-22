@@ -1,4 +1,11 @@
 const FuelSolution = require('../core/domain/fuel.solution');
+const FuelStopRepo = require('../core/repository/fuelstop.repo');
+const globalEmitter = require('../core/common/global.emitter');
+
+globalEmitter.on('insert:unlisted_fuel_stops', unlisted_fuel_stops => {
+    const repo = new FuelStopRepo();
+    return repo.addMany(unlisted_fuel_stops);
+})
 
 async function driftRoute(request, reply){
     const payload = request.body;
