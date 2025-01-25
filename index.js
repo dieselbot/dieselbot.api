@@ -1,7 +1,4 @@
 const path = require("path");
-const { check_env } = require("./core/common/utils.js");
-
-check_env(path.join(__dirname, '.env'));
 
 const formbody = require("@fastify/formbody");
 const cors = require('@fastify/cors');
