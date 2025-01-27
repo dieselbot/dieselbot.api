@@ -3,6 +3,7 @@ const FuelStopRepo = require('../core/repository/fuelstop.repo');
 const globalEmitter = require('../core/common/global.emitter');
 const { found } = require('../core/common/constants.json');
 const { no_results_found, invalid_fuel_solution } = require('../core/templates');
+const { FuelSolutionError } = require('../core/common/errors');
 
 globalEmitter.on(found.unlisted_fuel_stops, unlisted_fuel_stops => {
     const repo = new FuelStopRepo();
@@ -24,13 +25,14 @@ async function driftRoute(request, reply) {
 
     if (result.success) {
         this.drift.send(conversationId, result.data);
-        const fuel_stops = result.not_found.map(fuel_stop => fuel_stop.toString());
         if (result.not_found.length) {
+            const fuel_stops = result.not_found.map(fuel_stop => fuel_stop.toString());
             this.drift.write(conversationId, no_results_found({ fuel_stops }));
         }
-    } else if (result.error) {
+    } else if (result.error && (result.error instanceof FuelSolutionError)) {
         this.drift.write(conversationId, invalid_fuel_solution({
-            errors: result.error.errors.length ? result.error.errors : [result.error.message],
+            error_message: result.error.message,
+            errors: result.error.errors.length ? result.error.errors : null,
             wiki: result.error.wiki
         }));
     }
