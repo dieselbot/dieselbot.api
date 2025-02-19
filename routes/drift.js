@@ -25,7 +25,7 @@ async function driftRoute(request, reply) {
 
     if (result.success) {
         this.drift.send(conversationId, result.data);
-        if (result.not_found.length) {
+        if (result.not_found) {
             this.drift.write(conversationId, no_results_found({ fuel_stops: result.not_found }));
         }
     } else if (result.error && (result.error instanceof FuelSolutionError)) {
