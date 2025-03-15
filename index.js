@@ -36,7 +36,7 @@ fastify.register(async (instance) => {
 fastify.register(formbody);
 
 fastify.register(cors, {
-  origin: ['0.0.0.0', process.env.WEB_ORIGIN]
+  origin: ['0.0.0.0']
 })
 
 // Declare a route
